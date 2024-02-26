@@ -1,6 +1,6 @@
 import React from 'react'
-import Login from '../../pages/Login'
-import Register from '../../pages/Register'
+import Login from '../../pages/shop/Login'
+import Register from '../../pages/shop/Register'
 import { Route, Routes } from 'react-router-dom'
 
 function GuestLayout() {

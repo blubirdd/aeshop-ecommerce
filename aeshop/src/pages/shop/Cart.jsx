@@ -1,6 +1,6 @@
 import React from 'react'
-import CartItem from '../components/product/CartItem'
-import OrderSummary from '../components/product/OrderSummary'
+import CartItem from '../../components/product/CartItem'
+import OrderSummary from '../../components/product/OrderSummary'
 function Cart() {
   return (
     <div className="mx-auto">

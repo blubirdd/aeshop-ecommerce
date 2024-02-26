@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { ShopContext } from '../context/ShopContext';
-import SearchResults from '../components/product/SearchResults';
+import { ShopContext } from '../../context/ShopContext';
+import SearchResults from '../../components/product/SearchResults';
 function SearchResultsPage() {
   const { products } = useContext(ShopContext);
   const location = useLocation();

@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Hero from '../components/section/Hero'
-import Featured from '../components/section/Featured'
-import Banners from '../components/section/Banners'
+import Hero from '../../components/section/Hero'
+import Featured from '../../components/section/Featured'
+import Banners from '../../components/section/Banners'
 function Home() {
   return (
     <>

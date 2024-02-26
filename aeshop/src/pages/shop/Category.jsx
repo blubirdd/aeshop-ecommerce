@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { ShopContext } from '../context/ShopContext';
-import Item from '../components/product/Item';
+import { ShopContext } from '../../context/ShopContext';
+import Item from '../../components/product/Item';
 
 function Category({ banner, description, category }) {
   const { products } = useContext(ShopContext);

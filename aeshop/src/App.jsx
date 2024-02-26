@@ -8,8 +8,8 @@ import { ShopContext } from './context/ShopContext';
 
 import UserLayout from './components/layouts/UserLayout';
 import GuestLayout from './components/layouts/GuestLayout';
-import Checkout from './pages/Checkout';
-import NotFound from './pages/NotFound';
+import Checkout from './pages/shop/Checkout';
+import NotFound from './pages/shop/NotFound';
 
 function App() {
 
