@@ -8,6 +8,8 @@ import PostList from '../../components/admin/PostList.jsx';
 import Pagination from '../../components/others/Pagination.jsx';
 import ConfirmDialog from '../../components/others/ConfirmDialog.jsx';
 
+import { toast } from 'react-toastify';
+
 function Posts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +17,7 @@ function Posts() {
     currentPage: 1,
     totalPages: 1,
   });
-  const { setNotification } = useContext(UserContext);
+
   const [confirmDialog, setConfirmDialog] = useState(null);
 
   useEffect(() => {
@@ -34,7 +36,7 @@ function Posts() {
   const handleDeleteConfirmed = (postID) => {
     axiosClient.delete(`/posts/${postID}`)
       .then(() => {
-        setNotification('Post successfully deleted');
+        toast.success("Post successfully deleted");
         getPosts();
       })
       .finally(() => {

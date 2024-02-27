@@ -16,7 +16,7 @@ function UserContextProvider({ children }) {
   const [user, setUser] = useState({});
   const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN"));
   const [isLoading, setIsLoading] = useState(true);
-  const [notifications, setNotifications] = useState([]);
+  // const [notifications, setNotifications] = useState([]);
 
   const setToken = (token) => {
     _setToken(token);
@@ -27,14 +27,14 @@ function UserContextProvider({ children }) {
     }
   };
 
-  const setNotification = (message) => {
-    setNotifications((prev) => [...prev, message]);
+  // const setNotification = (message) => {
+  //   setNotifications((prev) => [...prev, message]);
     
-    console.log(message);
-    // setTimeout(() => {
-    //   setNotifications([]);
-    // }, 2000);
-  };
+  //   console.log(message);
+  //   setTimeout(() => {
+  //     setNotifications([]);
+  //   }, 2000);
+  // };
 
   //load user data
   useEffect(() => {
@@ -61,8 +61,8 @@ function UserContextProvider({ children }) {
     setToken,
     userRole: null,
     isLoading,
-    notifications,
-    setNotification,
+    // notifications,
+    // setNotification,
   };
 
   return (

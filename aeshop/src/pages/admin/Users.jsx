@@ -9,6 +9,8 @@ import UserList from '../../components/admin/UserList.jsx';
 import Pagination from '../../components/others/Pagination.jsx';
 import ConfirmDialog from '../../components/others/ConfirmDialog.jsx'
 
+import { toast } from 'react-toastify';
+
 function Users() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,7 +18,6 @@ function Users() {
     currentPage: 1,
     totalPages: 1,
   });
-  const { setNotification } = useContext(UserContext);
   const [confirmDialog, setConfirmDialog] = useState(null);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ function Users() {
   const handleDeleteConfirmed = (userID) => {
     axiosClient.delete(`/users/${userID}`)
       .then(() => {
-        setNotification('User successfully deleted');
+        toast.success("User successfully deleted");
         getUsers();
       })
       .finally(() => {

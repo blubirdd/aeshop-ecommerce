@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axiosClient from '../../../axios-client.js';
 import { UserContext } from '../../../context/UserContext.jsx';
 import Loading from '../../../components/others/Loading.jsx';
-
+import { toast } from 'react-toastify';
 function PostForm() {
 
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function PostForm() {
 
   const [errors, setErrors] = useState(null)
   const [loading, setLoading] = useState(false)
-  const { setNotification } = useContext(UserContext);
+
   const [originalpost, setOriginalpost] = useState(null);
 
   if (id) {
@@ -39,7 +39,7 @@ function PostForm() {
     if (post.id) {
       axiosClient.put(`/posts/${post.id}`, post)
         .then(() => {
-          setNotification('Post successfully updated')
+          toast.success("Post successfully Updated");
           navigate('/admin/posts')
         })
         .catch(err => {
@@ -51,7 +51,7 @@ function PostForm() {
     } else {
       axiosClient.post('/posts', post)
         .then(() => {
-          setNotification('Post successfully created')
+          toast.success("Post successfully created");
           navigate('/admin/posts')
         })
         .catch(err => {

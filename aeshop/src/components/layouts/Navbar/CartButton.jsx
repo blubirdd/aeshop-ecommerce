@@ -3,7 +3,7 @@ import { ShopContext } from '../../../context/ShopContext';
 import { Link } from 'react-router-dom';
 
 function CartButton() {
-
+  
   const { getTotalOfCartProducts } = useContext(ShopContext);
   const { products, cartItems } = useContext(ShopContext);
   let displayedItemCount = 0;

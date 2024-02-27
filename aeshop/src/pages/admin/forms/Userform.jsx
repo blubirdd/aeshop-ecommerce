@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axiosClient from '../../../axios-client.js';
 import { UserContext } from '../../../context/UserContext.jsx';
 import Loading from '../../../components/others/Loading.jsx';
+import { toast } from 'react-toastify';
 
 function UserForm() {
 
@@ -18,7 +19,6 @@ function UserForm() {
 
   const [errors, setErrors] = useState(null)
   const [loading, setLoading] = useState(false)
-  const { setNotification } = useContext(UserContext);
   const [originalUser, setOriginalUser] = useState(null);
 
   if (id) {
@@ -41,7 +41,7 @@ function UserForm() {
     if (user.id) {
       axiosClient.put(`/users/${user.id}`, user)
         .then(() => {
-          setNotification('User successfully updated')
+          toast.success('User successfully updated')
           navigate('/admin/users')
         })
         .catch(err => {
@@ -53,7 +53,7 @@ function UserForm() {
     } else {
       axiosClient.post('/users', user)
         .then(() => {
-          setNotification('User successfully created')
+          toast.success('User successfully created')
           navigate('/admin/users')
         })
         .catch(err => {
@@ -112,24 +112,30 @@ function UserForm() {
                   placeholder="Enter email"
                 />
               </div>
-              <div className="p-2 overflow-y-auto">
-                <label className="block text-sm font-medium mb-2 dark:text-white">Password</label>
-                <input
-                  type="password"
-                  className="py-3 px-4 block w-full rounded-md text-sm border border-gray-400 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                  onChange={ev => setUser({ ...user, password: ev.target.value })}
-                  placeholder="Enter Password"
-                />
-              </div>
-              <div className="p-2 overflow-y-auto">
-                <label className="block text-sm font-medium mb-2 dark:text-white">Confirm password</label>
-                <input
-                  type="password"
-                  className="py-3 px-4 block w-full rounded-md text-sm border border-gray-400 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                  onChange={ev => setUser({ ...user, password_confirmation: ev.target.value })}
-                  placeholder="Confirm Password"
-                />
-              </div>
+              {!user.id &&
+                <div className="password-inputs">
+                  <div className="p-2 overflow-y-auto">
+                    <label className="block text-sm font-medium mb-2 dark:text-white">Password</label>
+                    <input
+                      type="password"
+                      className="py-3 px-4 block w-full rounded-md text-sm border border-gray-400 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                      onChange={ev => setUser({ ...user, password: ev.target.value })}
+                      placeholder="Enter Password"
+                    />
+                  </div>
+
+                  <div className="p-2 overflow-y-auto">
+                    <label className="block text-sm font-medium mb-2 dark:text-white">Confirm password</label>
+                    <input
+                      type="password"
+                      className="py-3 px-4 block w-full rounded-md text-sm border border-gray-400 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                      onChange={ev => setUser({ ...user, password_confirmation: ev.target.value })}
+                      placeholder="Confirm Password"
+                    />
+                  </div>
+                </div>
+              }
+
               <div className="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
                 <button
                   onClick={() => navigate(-1)}

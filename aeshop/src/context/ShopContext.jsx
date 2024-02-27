@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { products } from '../constants';
+import { toast } from 'react-toastify';
 
 export const ShopContext = createContext(null);
 
@@ -48,7 +49,8 @@ function ShopContextProvider({ children }) {
     setCartItems((prev) => ({ ...prev, [itemID]: prev[itemID] + quantity }));
     const product = products.find((product) => product.id === itemID);
 
-    setNotifications((prev) => [...prev, `${product.name} added to cart successfully`]);
+    // setNotifications((prev) => [...prev, `${product.name} added to cart successfully`]);
+    toast.success(`${product.name} added to cart successfully`)
   }
 
   const increaseQuantity = (itemID) => {
@@ -63,6 +65,8 @@ function ShopContextProvider({ children }) {
   //delete item from cart
   const deleteFromCart = (itemID) => {
     setCartItems((prev) => ({ ...prev, [itemID]: 0 }));
+
+    toast.info("Item removed from cart successfully")
     console.log("Item removed from cart successfully");
   };
 

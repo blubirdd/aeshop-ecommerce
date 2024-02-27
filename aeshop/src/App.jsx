@@ -14,6 +14,7 @@ import GuestLayout from './components/layouts/GuestLayout';
 import Checkout from './pages/shop/Checkout';
 import NotFound from './pages/shop/NotFound';
 import AdminLayout from './components/layouts/AdminLayout';
+import ToastNotification from './components/others/ToastNotification';
 
 function App() {
 
@@ -55,6 +56,8 @@ function App() {
             <Notification key={index} id={index} message={message} removeNotification={removeNotification} />
           ))}
       </div>
+      
+      <ToastNotification />
     </>
   )
 }

@@ -54,7 +54,7 @@ function Navbar() {
             <NotificationButton />
 
             {/* cart button */}
-            {location.pathname !== '/cart' && (
+            {location.pathname !== '/cart' && !isOnAdminPage && (
               <CartButton />
             )}
 
