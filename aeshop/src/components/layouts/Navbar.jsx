@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ShopContext } from '../../context/ShopContext'
+import { UserContext } from '../../context/UserContext';
 import aeshop from '/aeshop.jpg'
 
 function Navbar() {
@@ -10,6 +11,16 @@ function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { user, token, setUser, setToken } = useContext(UserContext);
+  useEffect(() =>{
+      if(user){
+        console.log("USER LOGGED IN: " + user.name);
+      }
+      else{
+        console.log("NO USER LOGGED IN");
+      }
+  },[]);
 
   const handleSearch = () => {
     navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
@@ -46,7 +57,6 @@ function Navbar() {
               <svg className="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
             </button>
           </div>
-
           <div className="hidden sm:block">
             <label htmlFor="icon" className="sr-only">Search</label>
             <div className="relative">
@@ -71,7 +81,6 @@ function Navbar() {
               </button>
             </div>
           </div>
-
           <div className="flex flex-row items-center justify-end gap-3">
             <div className="hs-dropdown [--trigger:hover]  z-50">
               {/* notification button */}
@@ -162,31 +171,10 @@ function Navbar() {
             </Link>
 
             {/* user button */}
-            {/* <div className="hs-dropdown [--trigger:hover] relative inline-flex">
-              <button
-                id="hs-dropdown-hover-event"
-                type="button"
-                className="hs-dropdown-toggle w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                <img
-                  className="inline-block w-[2rem] h-[2rem] ms-4 rounded-full ring-2 ring-white dark:ring-gray-800"
-                  src={profileImage}
-                  alt="Image Description"
-                />
-              </button>
+            {/* {location.pathname !== '/admin' && (
 
-              <div className="hs-dropdown-menu transition-[opacity,margin] z-50 duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-gray-50 shadow-md rounded-lg p-2 mt-2 dark:bg-gray-800 dark:border dark:border-gray-700 dark:divide-gray-700 after:h-4 after:absolute after:-bottom-4 after:start-0 after:w-full before:h-4 before:absolute before:-top-4 before:start-0 before:w-full" aria-labelledby="hs-dropdown-hover-event">
-                <div className="py-3 px-5 -m-2 bg-gray-100 rounded-t-lg dark:bg-gray-700">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Signed in as</p>
-                  <p className="text-sm font-medium text-gray-800 dark:text-gray-300">james@site.com</p>
-                </div>
-                <div className="mt-2 py-2 first:pt-0 last:pb-0 ">
-                  <a className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm  bg-gray-50 hover:bg-white text-gray-800 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#">
-                    <svg className="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
-                    Manage account
-                  </a>
-                </div>
-              </div>
-            </div> */}
+            )} */}
+
           </div>
         </div>
       </nav>
