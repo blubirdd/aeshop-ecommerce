@@ -29,7 +29,7 @@ function Login() {
         // navigate(data.role === 'admin' ? '/admin/dashboard' : '/home');
         console.log("LOGGED IN: " + data.user.name);
         console.log("token:" + data.token);
-        // navigate('/');
+        navigate('/');
       })
       .catch((err) => {
         const response = err.response;
