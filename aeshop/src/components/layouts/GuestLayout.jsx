@@ -5,12 +5,12 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { UserContext } from '../../context/UserContext'
 
 function GuestLayout() {
-  const { token, userRole } = useContext(UserContext);
+  const { token, user } = useContext(UserContext);
 
   //temporary for testing
   if(token){
-    if (userRole === 'user' || userRole === "admin") {
-      return <Navigate to="/home" />;
+    if (user.role === 'user' || user.role === "admin") {
+      return <Navigate to="/" />;
     }
   }
   else{

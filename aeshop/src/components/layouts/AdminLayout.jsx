@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, Navigate, Routes, Route } from "react-router-dom";
-// import { useStateContext } from "../../context/ContextProvider.jsx";
-
-// import Notification from '../Notification.jsx';
+import { UserContext } from '../../context/UserContext';
+import Notification from '../others/Notification';
 import Navbar from './Navbar';
 import Sidebar from '../admin/Sidebar';
 import Dashboard from '../../pages/admin/Dashboard';
-function AdminLayout() {
+import Users from '../../pages/admin/Users';
+import UserForm from '../../pages/admin/forms/Userform';
+import Posts from '../../pages/admin/Posts';
+import PostForm from '../../pages/admin/forms/Postform';
 
-//   const {notification} = useStateContext();
+
+function AdminLayout() {
 
   return (
     <>
@@ -16,15 +19,19 @@ function AdminLayout() {
       <Sidebar />
       <main>
         <div className="w-full  pt-4 px-4 sm:px-6 md:px-8 lg:ps-72">
-        <Routes>
-            <Route path="/" element={<Dashboard />} />
-        </Routes>
+          <Routes>
+            {/* <Route path="/admin" element={<Navigate to="/dashboard" />} /> */}
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/users/new" element={<UserForm key="userCreate" />} />
+            <Route path="/users/:id" element={<UserForm key="userUpdate" />} />
+
+            <Route path="/posts" element={<Posts />} />
+            <Route path="/posts/new" element={<PostForm key="postCreate" />} />
+            <Route path="/posts/:id" element={<PostForm key="postUpdate" />} />
+          </Routes>
         </div>
       </main>
-
-      {/* {notification &&
-        <Notification message={notification} />
-      } */}
 
     </>
   )

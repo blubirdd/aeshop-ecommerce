@@ -1,5 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
+import aeshopLogo from '/aeshop.png';
+
 function Sidebar() {
   return (
     <>
@@ -18,20 +20,31 @@ function Sidebar() {
       </div>
       <div id="application-sidebar" className="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 bg-white border-e border-gray-200 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-slate-700 dark:[&::-webkit-scrollbar-thumb]:bg-slate-500 dark:bg-gray-800 dark:border-gray-700">
         <div className="px-6">
-          <a className="flex-none text-xl font-semibold dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#" aria-label="logo">Admin Panel</a>
+          <div className="logo-group">
+            <div className="me-2 md:me-2">
+              <a
+                className="flex items-center text-xl font-semibold dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                href="/"
+              >
+                <img src={aeshopLogo} className="w-10" alt="Logo" />
+                <span className="ml-2">Admin Panel</span>
+              </a>
+            </div>
+          </div>
+
         </div>
         <nav className="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
           <ul className="space-y-1.5">
             <li>
-              <NavLink to="/home" className="flex items-center aria-[current=page]:bg-gray-200 gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-100 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 dark:hover:text-slate-300 dark:hover:bg-gray-900">
+              <NavLink to="/" className="flex items-center aria-[current=page]:bg-gray-200 gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-100 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 dark:hover:text-slate-300 dark:hover:bg-gray-900">
                 <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8v10a1 1 0 0 0 1 1h4v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h4a1 1 0 0 0 1-1V8M1 10l9-9 9 9" />
                 </svg>
-                Homepage
+                Aeshop
               </NavLink>
             </li>
             <li>
-              <NavLink to="/admin" className="flex items-center aria-[current=page]:bg-gray-200 gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-100 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 dark:hover:text-slate-300 dark:hover:bg-gray-900">
+              <NavLink to="/admin/dashboard" className="flex items-center aria-[current=page]:bg-gray-200 gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-100 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 dark:hover:text-slate-300 dark:hover:bg-gray-900">
                 <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                   <path stroke="currentColor" strokeLinejoin="round" strokeWidth="2" d="M8 8v1h4V8m4 7H4a1 1 0 0 1-1-1V5h14v9a1 1 0 0 1-1 1ZM2 1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Z" />
                 </svg>

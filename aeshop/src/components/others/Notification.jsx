@@ -1,5 +1,3 @@
-// Notification.jsx
-
 import React, { useEffect, useState } from 'react';
 
 function Notification({ id, status, message, removeNotification }) {

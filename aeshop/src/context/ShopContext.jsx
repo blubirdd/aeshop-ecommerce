@@ -36,11 +36,11 @@ function ShopContextProvider({ children }) {
 
 
   const setNotification = (message) => {
-    _setNotification(message);
+    // _setNotification(message);
 
-    setTimeout(() => {
-      _setNotification("");
-    }, 2000);
+    // setTimeout(() => {
+    //   _setNotification("");
+    // }, 2000);
   };
 
 

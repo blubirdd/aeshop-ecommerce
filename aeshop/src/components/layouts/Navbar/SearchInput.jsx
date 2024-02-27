@@ -30,10 +30,11 @@ function SearchInput() {
         </button>
       </div>
       <div className="hidden sm:block">
-        <label htmlFor="icon" className="sr-only">Search</label>
+        <label htmlFor="search" className="sr-only">Search</label>
         <div className="relative">
           <input
             type="text"
+            id="search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleKeyPress}

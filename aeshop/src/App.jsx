@@ -1,5 +1,8 @@
 import React, { useEffect, useContext } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -37,14 +40,14 @@ function App() {
   }, []);
 
   const { notifications, removeNotification } = useContext(ShopContext);
-
+  
   return (
     <>
       <Routes>
         <Route path="*" element={<UserLayout />} />
         <Route path="/guest/*" element={<GuestLayout />} />
         <Route path="/checkout/" element={<Checkout />} />
-        <Route path="/admin" element={<AdminLayout />} />
+        <Route path="/admin/*" element={<AdminLayout />} />
       </Routes>
 
       <div className=" notification-container fixed z-[999] pointer-events-none bottom-4 -right-20 space-y-2">

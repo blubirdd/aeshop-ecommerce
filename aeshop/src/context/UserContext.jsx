@@ -4,7 +4,7 @@ import axiosClient from "../axios-client";
 export const UserContext = createContext({
   currentUser: null,
   token: null,
-  notification: null,
+  // notification: null,
   userRole: null,
   setUser: () => {},
   setToken: () => {},
@@ -15,8 +15,8 @@ function UserContextProvider({ children }) {
 
   const [user, setUser] = useState({});
   const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN"));
-  const [notifications, _setNotification] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [notifications, setNotifications] = useState([]);
 
   const setToken = (token) => {
     _setToken(token);
@@ -28,11 +28,12 @@ function UserContextProvider({ children }) {
   };
 
   const setNotification = (message) => {
-    _setNotification(message);
-
-    setTimeout(() => {
-      _setNotification("");
-    }, 2000);
+    setNotifications((prev) => [...prev, message]);
+    
+    console.log(message);
+    // setTimeout(() => {
+    //   setNotifications([]);
+    // }, 2000);
   };
 
   //load user data
