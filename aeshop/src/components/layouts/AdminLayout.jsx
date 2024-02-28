@@ -9,6 +9,8 @@ import Users from '../../pages/admin/Users';
 import UserForm from '../../pages/admin/forms/Userform';
 import Posts from '../../pages/admin/Posts';
 import PostForm from '../../pages/admin/forms/Postform';
+import Products from '../../pages/admin/Products';
+import ProductForm from '../../pages/admin/forms/Productform';
 
 
 function AdminLayout() {
@@ -29,7 +31,10 @@ function AdminLayout() {
             <Route path="/posts" element={<Posts />} />
             <Route path="/posts/new" element={<PostForm key="postCreate" />} />
             <Route path="/posts/:id" element={<PostForm key="postUpdate" />} />
-          </Routes>
+
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:id" element={<ProductForm key="productUpdate" />} />
+            </Routes>
         </div>
       </main>
 

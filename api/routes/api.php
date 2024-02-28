@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth:sanctum', 'admin')->group(function () {
     Route::apiResource('/users', UserController::class);
     Route::apiResource('/posts', PostController::class);
+    Route::apiResource('/products', ProductController::class);
     Route::get('/posts/search', [PostController::class, 'search']);
 });
 

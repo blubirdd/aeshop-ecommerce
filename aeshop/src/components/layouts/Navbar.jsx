@@ -27,7 +27,7 @@ function Navbar() {
     <header className={`flex flex-wrap sm:justify-start sm:flex-nowrap z-40 w-full bg-white text-sm py-2.5 sm:py-4 dark:border-gray-700 
       ${isOnAdminPage ? 'border-b-2' : ''}`}>
 
-      <nav className="flex basis-full max-w-7xl items-center w-full mx-auto px-2 sm:px-4 md:px-6 " aria-label="Global">
+      <nav className={`flex basis-full ${!isOnAdminPage ? 'max-w-7xl' :''} items-center w-full mx-auto px-2 sm:px-4 md:px-6`} aria-label="Global">
 
         {!isOnAdminPage && (
           <div className="logo-group">

@@ -79,7 +79,7 @@ function PostForm() {
       }
       {!loading && (
         <>
-          {post.id && <h1 className="text-xl p-2 font-bold"> Update post:
+          {post.id && <h1 className="text-xl p-2 font-bold"> Update post:&nbsp;
             <span className="font-normal">
               {originalpost && originalpost.name}
             </span>

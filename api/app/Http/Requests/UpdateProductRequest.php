@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 class UpdateProductRequest extends FormRequest
+
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +24,32 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        $method = $this->method();
+        if ($method == 'PUT') {
+            return [
+                'name' => ['required', 'unique:products'],
+                'details' => ['required'],
+                'description' => ['required'],
+                'category' => ['required'],
+                'stock' => ['required', 'numeric'],
+                'new_price' => ['required', 'numeric'],
+                'old_price' => ['required', 'numeric'],
+                'featured' => ['required',  Rule::in(['Yes', 'No'])],
+            ];
+        } 
+        
+        else {
+            return [
+                'name' => ['sometimes', 'required'],
+                'details' => ['sometimes', 'required'],
+                'description' => ['sometimes', 'required'],
+                'category' => ['sometimes', 'required'],
+                'stock' => ['sometimes', 'required', 'numeric'],
+                'new_price' => ['sometimes', 'required', 'numeric'],
+                'old_price' => ['sometimes', 'required', 'numeric'],
+                'featured' => ['sometimes', 'required', Rule::in(['Yes', 'No'])],
+            ];
+        }
+
     }
 }

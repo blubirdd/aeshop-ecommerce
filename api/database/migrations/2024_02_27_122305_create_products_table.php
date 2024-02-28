@@ -17,12 +17,12 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('details');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('category');
             $table->integer('stock');
             $table->float('new_price');
-            $table->float('old_price');
-            $table->boolean('featured');
+            $table->float('old_price')->nullable();
+            $table->string('featured');
             $table->timestamps();
         });
     }
