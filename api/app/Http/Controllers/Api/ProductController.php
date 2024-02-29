@@ -10,7 +10,7 @@ use App\Models\Product;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
-use App\Http\Resources\UpdateProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -27,6 +27,7 @@ class ProductController extends Controller
         $product = Product::where($filterItems);
 
         return new ProductCollection($product->paginate()->appends($request->query()));
+        // return response()->json(new ProductCollection($product->paginate()->appends($request->query())), 200);
         // return ProductResource::collection(Product::all());
     }
 
@@ -36,9 +37,13 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        //
+        $data = $request->validated();
+        $product = Product::create($data);
+
+        return response(new ProductResource($product), 201);
+        // return new ProductResource(Product::create($request->all()));
     }
 
     /**
@@ -59,9 +64,16 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+
+        $data = $request->validated();
+        $product->update($data);
+
+        return new ProductResource($product);
+
+        // $product->update($request->all());
+        // return new ProductResource($product);
     }
 
     /**
@@ -72,8 +84,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
+        if ($product->delete()) {
 
-        return response("", 204);
+            return response("", 204);
+        } 
+        else {
+            return response(['error' => 'Failed to delete product'], 500);
+        }
     }
 }

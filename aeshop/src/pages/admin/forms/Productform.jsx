@@ -8,21 +8,22 @@ function ProductForm() {
 
   const navigate = useNavigate();
   let { id } = useParams();
-  const [product, setproduct] = useState({
+  const [product, setProduct] = useState({
     id: null,
-    description: '',
+    name: '',
     details: '',
+    description: '',
     category: '',
     stock: '',
-    new_price: '',
-    old_price: '',
-    featured: '',
+    newPrice: '',
+    oldPrice: '',
+    featured: 'No',
   })
 
   const [errors, setErrors] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const [originalproduct, setOriginalproduct] = useState(null);
+  const [originalProduct, setOriginalproduct] = useState(null);
 
   if (id) {
     useEffect(() => {
@@ -30,7 +31,7 @@ function ProductForm() {
       axiosClient.get(`/products/${id}`)
         .then(({ data }) => {
           setLoading(false)
-          setproduct(data)
+          setProduct(data)
           setOriginalproduct(data);
         })
         .catch(() => {
@@ -42,7 +43,11 @@ function ProductForm() {
   const onSubmit = ev => {
     ev.preventDefault()
     if (product.id) {
-      axiosClient.put(`/products/${product.id}`, product)
+      axiosClient.put(`/products/${product.id}`, {
+        ...product,
+        new_price: product.newPrice,
+        old_price: product.oldPrice, 
+      })
         .then(() => {
           toast.success("Product successfully Updated");
           navigate('/admin/products')
@@ -54,7 +59,11 @@ function ProductForm() {
           }
         })
     } else {
-      axiosClient.product('/products', product)
+      axiosClient.post('/products', {
+        ...product,
+        new_price: product.newPrice,
+        old_price: product.oldPrice, 
+      })
         .then(() => {
           toast.success("Product successfully created");
           navigate('/admin/products')
@@ -86,7 +95,7 @@ function ProductForm() {
         <>
           {product.id && <h1 className="text-xl p-2 font-bold"> Update product:&nbsp;
             <span className="font-normal">
-              {originalproduct && originalproduct.name}
+              {originalProduct && originalProduct.name}
             </span>
           </h1>
           }
@@ -100,10 +109,10 @@ function ProductForm() {
                 <label className="block text-sm font-medium mb-2 dark:text-white">Product Name</label>
                 <input
                   className="py-3 px-4 block w-full rounded-md text-sm border border-gray-200 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                  placeholder="Enter title"
+                  placeholder="Enter product name"
                   type="text"
                   value={product.name}
-                  onChange={ev => setproduct({ ...product, name: ev.target.value })}
+                  onChange={ev => setProduct({ ...product, name: ev.target.value })}
                 />
               </div>
 
@@ -115,7 +124,7 @@ function ProductForm() {
                     placeholder="Enter description"
                     type="text"
                     value={product.description}
-                    onChange={ev => setproduct({ ...product, description: ev.target.value })}
+                    onChange={ev => setProduct({ ...product, description: ev.target.value })}
                   />
                 </div>
                 <div className="p-2 overflow-y-auto flex-grow">
@@ -123,8 +132,9 @@ function ProductForm() {
                   <select
                     className="py-3 px-4 block w-full rounded-md text-sm border border-gray-200 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                     value={product.category}
-                    onChange={ev => setproduct({ ...product, category: ev.target.value })}
+                    onChange={ev => setProduct({ ...product, category: ev.target.value })}
                   >
+                    <option value="" disabled>--Select a category--</option>
                     <option value="Tech & Gadgets">Tech & Gadgets</option>
                     <option value="Toys and Games">Toys and Games</option>
                     <option value="Artworks">Artworks</option>
@@ -132,14 +142,15 @@ function ProductForm() {
                   </select>
                 </div>
 
+
                 <div className="p-2 overflow-y-auto flex-grow">
                   <label className="block text-sm font-medium mb-2 dark:text-white">Stock</label>
                   <input
                     className="py-3 px-4 block w-full rounded-md text-sm border border-gray-200 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                    placeholder="Enter category"
+                    placeholder="Enter product stock"
                     type="text"
                     value={product.stock}
-                    onChange={ev => setproduct({ ...product, stock: ev.target.value })}
+                    onChange={ev => setProduct({ ...product, stock: ev.target.value })}
                   />
                 </div>
               </div>
@@ -151,7 +162,7 @@ function ProductForm() {
                   rows="3"
                   placeholder="Enter Details..."
                   value={product.details}
-                  onChange={ev => setproduct({ ...product, details: ev.target.value })}
+                  onChange={ev => setProduct({ ...product, details: ev.target.value })}
                 />
               </div>
 
@@ -163,7 +174,7 @@ function ProductForm() {
                     placeholder="Enter product price"
                     type="text"
                     value={product.newPrice}
-                    onChange={ev => setproduct({ ...product, new_price: ev.target.value })}
+                    onChange={ev => setProduct({ ...product, newPrice: ev.target.value })}
                   />
                 </div>
                 <div className="p-2 overflow-y-auto flex-grow">
@@ -173,19 +184,19 @@ function ProductForm() {
                     placeholder="Enter product original price"
                     type="text"
                     value={product.oldPrice}
-                    onChange={ev => setproduct({ ...product, old_price: ev.target.value })}
+                    onChange={ev => setProduct({ ...product, oldPrice: ev.target.value })}
                   />
                 </div>
 
                 <div className="p-2 overflow-y-auto flex-grow">
                   <label className="block text-sm font-medium mb-2 dark:text-white">Featured</label>
-                  <select
+                  <select 
                     className="py-3 px-4 block w-full rounded-md text-sm border border-gray-200 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                     value={product.featured}
-                    onChange={ev => setproduct({ ...product, featured: ev.target.value })}
+                    onChange={ev => setProduct({ ...product, featured: ev.target.value })}
                   >
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
                   </select>
                 </div>
 

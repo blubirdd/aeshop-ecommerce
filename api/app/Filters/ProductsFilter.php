@@ -8,16 +8,18 @@ class Productsfilter extends ApiFilter {
         'name' => ['eq'],
         'details' => ['eq'],
         'description' => ['eq'],
-        'stock' => ['eq'],
+        'stock' => ['eq', 'gt', 'gte', 'lt', 'lte'],
         'category' => ['eq'],
-        'newPrice' => ['lt', 'gt'],
+        'newPrice' => ['eq', 'lt', 'lte', 'gt', 'gte'],
         'featured' => ['eq'],
     ];
 
     protected $operatorMap = [
     'eq' => '=',
     'lt' => '<',
-    'gt' => '>,'
+    'lte' => '<=',
+    'gt' => '>',
+    'gte' => '>='
     ];
 
 }

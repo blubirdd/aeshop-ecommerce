@@ -35,7 +35,7 @@ function Products() {
   const handleDeleteConfirmed = (productID) => {
     axiosClient.delete(`/products/${productID}`)
       .then(() => {
-        toast.success("User successfully deleted");
+        toast.success("Product successfully deleted");
         getProducts();
       })
       .finally(() => {
@@ -45,8 +45,12 @@ function Products() {
 
   const getProducts = () => {
     setLoading(true);
+  
+    const params = new URLSearchParams(location.search);
+    const page = params.get('page') || pagination.currentPage;
+  
     axiosClient
-      .get('/products', { params: { page: pagination.currentPage } })
+      .get(`/products?page=${page}&${params.toString()}`)
       .then(({ data }) => {
         setLoading(false);
         setProducts(data.data);
@@ -59,6 +63,7 @@ function Products() {
         setLoading(false);
       });
   };
+  
 
   useEffect(() => {
     HSStaticMethods.autoInit();

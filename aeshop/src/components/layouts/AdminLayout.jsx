@@ -33,6 +33,7 @@ function AdminLayout() {
             <Route path="/posts/:id" element={<PostForm key="postUpdate" />} />
 
             <Route path="/products" element={<Products />} />
+            <Route path="/products/new" element={<ProductForm key="productCreate" />} />
             <Route path="/products/:id" element={<ProductForm key="productUpdate" />} />
             </Routes>
         </div>

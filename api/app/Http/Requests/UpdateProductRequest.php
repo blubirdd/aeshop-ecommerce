@@ -27,7 +27,7 @@ class UpdateProductRequest extends FormRequest
         $method = $this->method();
         if ($method == 'PUT') {
             return [
-                'name' => ['required', 'unique:products'],
+                'name' => ['required'],
                 'details' => ['required'],
                 'description' => ['required'],
                 'category' => ['required'],
