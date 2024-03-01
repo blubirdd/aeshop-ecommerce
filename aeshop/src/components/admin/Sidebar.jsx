@@ -27,7 +27,7 @@ function Sidebar() {
                 href="/"
               >
                 <img src={aeshopLogo} className="w-10" alt="Logo" />
-                <span className="ml-2">Admin Panel</span>
+                <span className="ml-2">Aeshop Admin</span>
               </a>
             </div>
           </div>
@@ -40,7 +40,7 @@ function Sidebar() {
                 <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8v10a1 1 0 0 0 1 1h4v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h4a1 1 0 0 0 1-1V8M1 10l9-9 9 9" />
                 </svg>
-                Aeshop
+                Shop
               </NavLink>
             </li>
             <li>
@@ -74,6 +74,14 @@ function Sidebar() {
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.6 8.4h0m-4.7 11.3-6.6-6.6a1 1 0 0 1 0-1.4l7.3-7.4a1 1 0 0 1 .7-.3H18a2 2 0 0 1 2 2v5.5a1 1 0 0 1-.3.7l-7.5 7.5a1 1 0 0 1-1.3 0Z" />
                 </svg>
                 Orders
+              </NavLink>
+            </li>
+            <li >
+              <NavLink to="/admin/invoices" className="w-full flex items-center aria-[current=page]:bg-gray-200 gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 8h6m-6 4h6m-6 4h6M6 3v18l2-2 2 2 2-2 2 2 2-2 2 2V3l-2 2-2-2-2 2-2-2-2 2-2-2Z" />
+                </svg>
+                Invoices
               </NavLink>
             </li>
             <li >

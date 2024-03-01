@@ -28,19 +28,21 @@ class UpdateProductRequest extends FormRequest
         if ($method == 'PUT') {
             return [
                 'name' => ['required'],
-                'details' => ['required'],
-                'description' => ['required'],
-                'category' => ['required'],
-                'stock' => ['required', 'numeric'],
-                'new_price' => ['required', 'numeric'],
-                'old_price' => ['required', 'numeric'],
-                'featured' => ['required',  Rule::in(['Yes', 'No'])],
+                'image' => ['mimes:png,jpg,jpeg,webp', 'max:2048'],
+                'details'=> ['required'],
+                'description'=> ['required'],
+                'category'=> ['required'],
+                'stock'=> ['required', 'numeric'],
+                'new_price'=> ['required', 'numeric'],
+                'old_price'=> ['required', 'numeric'],
+                'featured'=> ['required', Rule::in(['Yes', 'No'])],
             ];
         } 
         
         else {
             return [
                 'name' => ['sometimes', 'required'],
+                'image' => ['nullable', 'sometimes', 'mimes:png,jpg,jpeg,webp', 'max:2048'],
                 'details' => ['sometimes', 'required'],
                 'description' => ['sometimes', 'required'],
                 'category' => ['sometimes', 'required'],

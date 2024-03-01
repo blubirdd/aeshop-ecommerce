@@ -11,14 +11,12 @@ function ProductList({ products, onDelete }) {
               <thead className="bg-gray-200 dark:bg-gray-700">
                 <tr>
                   <th scope="col" className="px-3 py-3 text-center text-xs font-medium text-gray-800 uppercase dark:text-gray-400">ID</th>
-                  <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Name</th>
+                  <th scope="col" className="px-4 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Product</th>
                   {/* <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Details</th> */}
-                  <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Description</th>
-                  <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Category</th>
-                  <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Stock</th>
-                  <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Price</th>
+                  <th scope="col" className="px-3 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Description</th>
+                  <th scope="col" className="px-3 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Category</th>
+                  <th scope="col" className="px-3 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Price</th>
                   <th scope="col" className="px-3 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Featured</th>
-                  {/* <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Old Price</th> */}
                   <th scope="col" className="px-4 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Actions</th>
                 </tr>
               </thead>
@@ -26,16 +24,22 @@ function ProductList({ products, onDelete }) {
               <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                 {products.map(product => (
                   <tr key={product.id} className="hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <td className="py-3 whitespace-nowrap text-center text-sm text-gray-800 dark:text-gray-200">{product.id}</td>
-                    <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{product.name}</td>
+                    <td className="py-3 whitespace-nowrap text-center text-sm text-gray-800 dark:text-gray-200 align-middle">{product.id}</td>
+                    <td className="px-4 py-3 whitespace-wrap text-sm text-gray-800 dark:text-gray-200 align-middle">
+                      <div className="flex items-center gap-x-3">
+                        <img className="inline-block w-16 h-16 object-cover rounded-full" src={product.image} />
+                        <div className="grow">
+                        <span className="block text-sm font-semibold text-gray-800 dark:text-gray-200">{product.name}</span>
+                        <span className="block text-xs text-gray-500">Stock: {product.stock}</span>
+                        </div>
+                      </div>
+                    </td>
                     {/* <td className="px-6 py-3 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">{product.details}</td> */}
-                    <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{product.description}</td>
-                    <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{product.category}</td>
-                    <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{product.stock}</td>
-                    <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">₱{product.newPrice.toLocaleString()}</td>
-                    {/* <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">₱{product.oldPrice.toLocaleString()}</td> */}
-                    <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{product.featured}</td>
-                    <td className="px-4  py-2 whitespace-nowrap space-x-1 text-sm font-medium">
+                    <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 align-middle">{product.description}</td>
+                    <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 align-middle">{product.category}</td>
+                      <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 align-middle">₱{product.newPrice.toLocaleString()}</td>
+                    <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 align-middle">{product.featured}</td>
+                    <td className="px-4  py-2 whitespace-nowrap space-x-1 text-sm font-medium align-middle">
                       <div className="hs-dropdown relative inline-flex">
                         <button id="hs-dropdown-custom-trigger" type="button" className="hs-dropdown-toggle bg-sky-700 hover:bg-sky-600 py-1 ps-1 pe-3 gap-x-1 inline-flex items-center text-sm font-semibold rounded-md  border  text-gray-800 shadow-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white">
                           <svg className="w-4 h-4 text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -58,15 +62,6 @@ function ProductList({ products, onDelete }) {
                           </button>
                         </div>
                       </div>
-
-                      {/* <Link to={'/admin/products/' + product.id}>
-                        <button type="button" className="py-1 px-2 inline-flex items-center bg-opacity-80 bg-op text-sm font-semibold rounded-lg border border-transparent bg-sky-900 text-gray-200 hover:bg-sky-800 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                          Edit
-                        </button>
-                      </Link>
-                      <button onClick={ev => onDelete(product)} type="button" className="py-1 px-2 inline-flex items-center bg-opacity-80  text-sm font-semibold rounded-lg border border-transparent bg-red-700 text-gray-200 hover:bg-red-600 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                        Delete
-                      </button> */}
                     </td>
                   </tr>
                 ))}

@@ -11,6 +11,7 @@ function ProductForm() {
   const [product, setProduct] = useState({
     id: null,
     name: '',
+    image: null,
     details: '',
     description: '',
     category: '',
@@ -42,40 +43,67 @@ function ProductForm() {
 
   const onSubmit = ev => {
     ev.preventDefault()
+    const formData = new FormData();
     if (product.id) {
-      axiosClient.put(`/products/${product.id}`, {
-        ...product,
-        new_price: product.newPrice,
-        old_price: product.oldPrice, 
+      formData.append('_method', 'PATCH')
+    }
+    formData.append('name', product.name);
+    if (product.image !== null && typeof product.image !== 'string') {
+      formData.append('image', product.image);
+    }
+    formData.append('details', product.details);
+    formData.append('description', product.description);
+    formData.append('category', product.category);
+    formData.append('stock', product.stock);
+    formData.append('new_price', product.newPrice);
+    formData.append('old_price', product.oldPrice);
+    formData.append('featured', product.featured);
+
+    for (const entry of formData.entries()) {
+      console.log(entry);
+    }
+    
+    if (product.id) {
+      axiosClient.post(`/products/${product.id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       })
         .then(() => {
           toast.success("Product successfully Updated");
-          navigate('/admin/products')
+          navigate('/admin/products');
         })
         .catch(err => {
           const response = err.response;
           if (response && response.status === 422) {
-            setErrors(response.data.errors)
+            setErrors(response.data.errors);
           }
-        })
+        });
+
     } else {
-      axiosClient.post('/products', {
-        ...product,
-        new_price: product.newPrice,
-        old_price: product.oldPrice, 
+      axiosClient.post('/products', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
       })
         .then(() => {
           toast.success("Product successfully created");
-          navigate('/admin/products')
+          navigate('/admin/products');
         })
         .catch(err => {
           const response = err.response;
           if (response && response.status === 422) {
-            setErrors(response.data.errors)
+            setErrors(response.data.errors);
           }
-        })
+        });
     }
   }
+
+  const handleImageChange = (ev) => {
+    console.log('File selected:', ev.target.files[0]);
+    const file = ev.target.files[0];
+    setProduct((product) => ({ ...product, image: file }));
+  };
 
   return (
     <>
@@ -103,18 +131,36 @@ function ProductForm() {
           {!product.id &&
             <h1 className="text-xl p-2 font-bold">Creat new product</h1>
           }
-          <div className="flex flex-col  max-w-4xl p-4 bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
-            <form onSubmit={onSubmit}>
-              <div className="p-2 overflow-y-auto">
-                <label className="block text-sm font-medium mb-2 dark:text-white">Product Name</label>
-                <input
-                  className="py-3 px-4 block w-full rounded-md text-sm border border-gray-200 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                  placeholder="Enter product name"
-                  type="text"
-                  value={product.name}
-                  onChange={ev => setProduct({ ...product, name: ev.target.value })}
-                />
+          <div className="flex flex-col  max-w-4xl p-4 bg-white border-2 shadow-sm rounded-xl pointer-events-auto dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+            <form onSubmit={onSubmit} encType='multipart/form-data'>
+
+              <div className="flex mt-2 space-x-4">
+                <div className="p-2 overflow-y-auto flex-grow">
+                  <label className="block text-sm font-medium mb-2 dark:text-white">Product Name</label>
+                  <input
+                    className="py-3 px-4 block w-full rounded-md text-sm border border-gray-200 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                    placeholder="Enter product name"
+                    type="text"
+                    value={product.name}
+                    onChange={ev => setProduct({ ...product, name: ev.target.value })}
+                  />
+                </div>
+
+                <div className="p-2 overflow-y-auto flex-grow">
+                  <label htmlFor="file-input" className="block text-sm font-medium mb-2 dark:text-white">
+                    Upload Image
+                  </label>
+                  <input
+                    type="file"
+                    name="image"
+                    id="image"
+                    className="block border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4 dark:file:bg-gray-700 dark:file:text-gray-400"
+                    onChange={handleImageChange}
+                  />
+                </div>
+
               </div>
+
 
               <div className="flex mt-2 space-x-4">
                 <div className="p-2 overflow-y-auto flex-grow">
@@ -144,7 +190,7 @@ function ProductForm() {
 
 
                 <div className="p-2 overflow-y-auto flex-grow">
-                  <label className="block text-sm font-medium mb-2 dark:text-white">Stock</label>
+                  <label className="block text-sm font-medium mb-2 dark:text-white">Available Stocks</label>
                   <input
                     className="py-3 px-4 block w-full rounded-md text-sm border border-gray-200 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                     placeholder="Enter product stock"
@@ -190,10 +236,10 @@ function ProductForm() {
 
                 <div className="p-2 overflow-y-auto flex-grow">
                   <label className="block text-sm font-medium mb-2 dark:text-white">Featured</label>
-                  <select 
+                  <select
                     className="py-3 px-4 block w-full rounded-md text-sm border border-gray-200 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                     value={product.featured}
-                    onChange={ev => setProduct({ ...product, featured: ev.target.value })}
+                    onChange={handleImageChange}
                   >
                     <option value="No">No</option>
                     <option value="Yes">Yes</option>

@@ -19,6 +19,7 @@ class ProductResource extends JsonResource
         return [
             "id"=> $this->id,
             "name"=> $this->name,
+            "image" => $this->image ? url("{$this->image}") : url("images/default.jpg"),
             "details"=>$this->details,
             "description"=> $this->description,
             "category" => $this->category,
