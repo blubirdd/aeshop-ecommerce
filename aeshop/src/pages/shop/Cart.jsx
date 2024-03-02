@@ -6,7 +6,7 @@ function Cart() {
     <div className="mx-auto">
       <div className="flex flex-col md:flex-row">
       <CartItem />
-      <OrderSummary />
+      {/* <OrderSummary /> */}
       </div>
     </div>
   )

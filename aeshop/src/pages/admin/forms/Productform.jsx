@@ -62,9 +62,9 @@ function ProductForm() {
     for (const entry of formData.entries()) {
       console.log(entry);
     }
-    
+
     if (product.id) {
-      axiosClient.post(`/products/${product.id}`, formData, {
+      axiosClient.post(`/products/${product.slug}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -181,7 +181,7 @@ function ProductForm() {
                     onChange={ev => setProduct({ ...product, category: ev.target.value })}
                   >
                     <option value="" disabled>--Select a category--</option>
-                    <option value="Tech & Gadgets">Tech & Gadgets</option>
+                    <option value="Tech and Gadgets">Tech & Gadgets</option>
                     <option value="Toys and Games">Toys and Games</option>
                     <option value="Artworks">Artworks</option>
                     <option value="Collectibles">Collectibles</option>
@@ -214,7 +214,7 @@ function ProductForm() {
 
               <div className="flex mt-2 pb-4 space-x-4">
                 <div className="p-2 overflow-y-auto flex-grow">
-                  <label className="block text-sm font-medium mb-2 dark:text-white">Price</label>
+                  <label className="block text-sm font-medium mb-2 dark:text-white">Selling Price</label>
                   <input
                     className="py-3 px-4 block w-full rounded-md text-sm border border-gray-200 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                     placeholder="Enter product price"
@@ -224,7 +224,7 @@ function ProductForm() {
                   />
                 </div>
                 <div className="p-2 overflow-y-auto flex-grow">
-                  <label className="block text-sm font-medium mb-2 dark:text-white">Discount %</label>
+                  <label className="block text-sm font-medium mb-2 dark:text-white">Original Price</label>
                   <input
                     className="py-3 px-4 block w-full rounded-md text-sm border border-gray-200 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                     placeholder="Enter product original price"
@@ -239,7 +239,7 @@ function ProductForm() {
                   <select
                     className="py-3 px-4 block w-full rounded-md text-sm border border-gray-200 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                     value={product.featured}
-                    onChange={handleImageChange}
+                    onChange={(e) => setProduct({ ...product, featured: e.target.value })}
                   >
                     <option value="No">No</option>
                     <option value="Yes">Yes</option>

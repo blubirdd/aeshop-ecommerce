@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react'
-import starbucks from '/starbucks.jpg'
 import { ShopContext } from '../../context/ShopContext'
 
 import ImageGallery from "react-image-gallery";
@@ -43,13 +42,18 @@ function ProductDisplay({ product }) {
     showFullscreenButton: false,
   });
 
-  const images = product.image.map((img, index) => ({
-    original: img,
-    thumbnail: img,
+  const images =  [
+    {
+      original: product.image,
+      thumbnail: product.image,
+    }
+  ]; 
 
-  }));
+  // const images = product.image.map((img, index) => ({
+  //   original: img,
+  //   thumbnail: img,
 
-
+  // }));
   return (
     <>
       <div className="overflow-hidden bg-neutral-50 font-poppins dark:bg-gray-800">
@@ -57,19 +61,18 @@ function ProductDisplay({ product }) {
           <div className="flex flex-wrap -mx-4">
             <div className="w-full px-4 md:w-1/2 ">
               <div className="sticky top-0 z-10 overflow-hidden bg-white rounded-md p-2">
-              <ImageGallery items={images} {...galleryOptions}  />
+              <ImageGallery items={images} {...galleryOptions}  /> 
               </div>
             </div>
             <div className="w-full px-4 md:w-1/2">
               <div className="lg:pl-4">
                 <div className="pb-6 mb-8 border-b border-gray-200 dark:border-gray-700">
-                  {/* <span className="text-lg font-medium text-rose-500 dark:text-rose-200">New</span> */}
                   <h2 className="max-w-xl mt-2 mb-2 text-xl font-bold dark:text-gray-300 md:text-4xl">
                     {product.name}
                   </h2>
 
                   <p className="inline-block text-3xl mb-4 font-bold text-sky-900 dark:text-gray-400 ">
-                    <span>₱{product.new_price.toLocaleString()} &nbsp;</span>
+                    <span>₱{product.newPrice?.toLocaleString()} &nbsp;</span>
                   </p>
 
                   <p className="max-w-md mb-1 text-gray-500 dark:text-gray-400 text-sm">

@@ -47,9 +47,9 @@ class ProductController extends Controller
             $extension = $file->getClientOriginalExtension();
             $fileName = time() . '.' . $extension;
 
-            $file->move('images/', $fileName);
+            $file->move('images/products/', $fileName);
 
-            $data['image'] = 'images/' . $fileName;
+            $data['image'] = 'images/products/' . $fileName;
         }
 
         $product = Product::create($data);
@@ -65,10 +65,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show(Product $product)
     {
         return new ProductResource($product);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -91,9 +93,9 @@ class ProductController extends Controller
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $fileName = time() . '.' . $extension;
-            $file->move('images/', $fileName);
+            $file->move('images/products/', $fileName);
 
-            $data['image'] = 'images/' . $fileName;
+            $data['image'] = 'images/products/' . $fileName;
         }
 
         $product->update($data);

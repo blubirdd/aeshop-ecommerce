@@ -26,7 +26,7 @@ function Products() {
   const onDelete = (product) => {
     setConfirmDialog({
       message: 'Are you sure you want to delete ' + product.name + '?',
-      onConfirm: () => handleDeleteConfirmed(product.id),
+      onConfirm: () => handleDeleteConfirmed(product.slug),
       onCancel: () => setConfirmDialog(null),
     });
   };
