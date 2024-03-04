@@ -14,7 +14,7 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id('order_id');
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->date('order_date');
             $table->float('total_price');

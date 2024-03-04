@@ -1,10 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../../context/ShopContext'
 import { Link } from 'react-router-dom';
+import axiosClient from '../../axios-client';
 
 function OrderSummary() {
 
   const { getTotalOfCartProducts, getTotalCartAmount, cartItems } = useContext(ShopContext);
+  const [cartSummary, setcartSummary] = useState([]);
+
+  useEffect(() =>{
+    getCartSummary();
+  },[cartSummary]) 
+
+  const getCartSummary = async () => {
+    const response = await axiosClient.get('/cartSummary')
+    
+  }
 
   return (
     <div className="w-full md:w-1/3 mx-auto bg-white border border-gray-300 px-10 py-10">

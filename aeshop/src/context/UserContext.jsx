@@ -27,15 +27,6 @@ function UserContextProvider({ children }) {
     }
   };
 
-  // const setNotification = (message) => {
-  //   setNotifications((prev) => [...prev, message]);
-    
-  //   console.log(message);
-  //   setTimeout(() => {
-  //     setNotifications([]);
-  //   }, 2000);
-  // };
-
   //load user data
   useEffect(() => {
     const fetchData = async () => {

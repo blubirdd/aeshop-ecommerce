@@ -14,7 +14,7 @@ class CreateShipmentsTable extends Migration
     public function up()
     {
         Schema::create('shipments', function (Blueprint $table) {
-            $table->id('shipment_id');
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->date('shipment_date');
             $table->string('address');

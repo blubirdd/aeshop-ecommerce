@@ -23,6 +23,11 @@ class Product extends Model
         'featured',
     ];
 
+    public function carts()
+    {
+        return $this->hasMany(CartProduct::class);
+    }
+
     public function images()
     {
         return $this->hasMany(ProductImage::class);
@@ -45,4 +50,5 @@ class Product extends Model
             $product->slug = $baseSlug . $suffix;
         });
     }
+
 }

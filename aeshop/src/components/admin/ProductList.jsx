@@ -10,13 +10,13 @@ function ProductList({ products, onDelete }) {
             <table className="min-w-full z-10 divide-y divide-gray-200 dark:divide-gray-700 bg-gray-50">
               <thead className="bg-gray-200 dark:bg-gray-700">
                 <tr>
-                  {/* <th scope="col" className="px-3 py-3 text-center text-xs font-medium text-gray-800 uppercase dark:text-gray-400">ID</th> */}
+                  <th scope="col" className="px-3 py-3 text-center text-xs font-medium text-gray-800 uppercase dark:text-gray-400">ID</th>
                   <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Product</th>
                   {/* <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Details</th> */}
                   <th scope="col" className="px-3 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Description</th>
                   <th scope="col" className="px-3 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Category</th>
                   <th scope="col" className="px-3 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Price</th>
-                  <th scope="col" className="px-3 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Featured</th>
+                  <th scope="col" className="px-3 py-3 text-center text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Featured</th>
                   <th scope="col" className="px-4 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Actions</th>
                 </tr>
               </thead>
@@ -24,20 +24,22 @@ function ProductList({ products, onDelete }) {
               <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                 {products.map(product => (
                   <tr key={product.id} className="hover:bg-gray-100 dark:hover:bg-gray-700">
-                    {/* <td className="py-3 whitespace-nowrap text-center text-sm text-gray-800 dark:text-gray-200 align-middle">{product.id}</td> */}
+                    <td className="py-3 whitespace-nowrap text-center text-sm text-gray-800 dark:text-gray-200 align-middle">{product.id}</td>
                     <td className="px-6 py-2 whitespace-wrap text-sm text-gray-800 dark:text-gray-200 align-middle">
-                      <div className="flex items-center gap-x-3">
-                        <img className="inline-block w-16 h-16 object-cover rounded-full" src={product.image} />
-                        <div className="grow">
-                        <span className="block text-sm font-semibold text-gray-800 dark:text-gray-200">{product.name}</span>
-                        <span className="block text-xs text-gray-500">Stock: {product.stock}</span>
+                      <Link to={'/admin/products/' + product.slug}>
+                        <div className="flex items-center gap-x-3">
+                          <img className="inline-block w-16 h-16 object-cover rounded-full" src={product.image} />
+                          <div className="grow">
+                            <span className="block text-sm font-semibold text-gray-800 dark:text-gray-200">{product.name}</span>
+                            <span className="block text-xs text-gray-500">Stock: {product.stock}</span>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                     </td>
                     {/* <td className="px-6 py-3 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">{product.details}</td> */}
                     <td className="px-3 py-3 whitespace-wrap text-sm text-gray-800 dark:text-gray-200 align-middle">{product.description}</td>
                     <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 align-middle">{product.category}</td>
-                      <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 align-middle">₱{product.newPrice.toLocaleString()}</td>
+                    <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 align-middle">₱{product.newPrice.toLocaleString()}</td>
                     <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 text-center align-middle">{product.featured}</td>
                     <td className="px-4  py-1 whitespace-nowrap space-x-1 text-sm font-medium align-middle">
                       <div className="hs-dropdown relative inline-flex">

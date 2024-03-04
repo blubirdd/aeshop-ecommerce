@@ -112,15 +112,6 @@ function ShopContextProvider({ children }) {
     setNotification,
   };
 
-
-  // useEffect(() => {
-  //   console.log('Updated Cart Items:', cartItems);
-  // }, [cartItems]);
-
-  // useEffect(() => {
-  //   console.log('Products in ShopContextProvider:', products);
-  // }, [products]);
-
   return (
     <ShopContext.Provider value={contextValue}>
       {children}

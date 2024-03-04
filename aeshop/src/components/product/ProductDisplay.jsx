@@ -1,20 +1,42 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { ShopContext } from '../../context/ShopContext'
+import axiosClient from '../../axios-client';
 
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
+import { toast } from 'react-toastify';
 
 function ProductDisplay({ product }) {
 
   const { addToCart, getItemStock, cartItems } = useContext(ShopContext);
   const [quantity, setQuantity] = useState(1);
-  const [initialStock, setInitialStock] = useState(getItemStock(product.id));
+  const [initialStock, setInitialStock] = useState(product.stock);
 
-  const stock = getItemStock(product.id)
+  const stock = product.stock;
+
+  //
+  const [item, setItem] = useState({
+    product_id: product.id,
+    quantity: 1,
+  });
 
   useEffect(() => {
     console.log("INITIAL STOCK IS " + initialStock);
   }, [initialStock]);
+
+
+  const handleAddToCart = (productID) => {
+    axiosClient.post('/cart', item)
+    .then(() => {
+      toast.success("Product added to cart successfully");
+    })
+    .catch(err => {
+      const response = err.response;
+      if (response && response.status === 422) {
+        setErrors(response.data.errors)
+      }
+    })
+  };
 
   const handleIncrement = () => {
     if (quantity < stock) {
@@ -30,11 +52,11 @@ function ProductDisplay({ product }) {
     }
   };
 
-  const handleAddToCart = () => {
-    addToCart(product.id, quantity);
-    setInitialStock((prevInitialStock) => prevInitialStock - quantity);
-    setQuantity(1);
-  };
+  // const handleAddToCart = () => {
+  //   addToCart(product.id, quantity);
+  //   setInitialStock((prevInitialStock) => prevInitialStock - quantity);
+  //   setQuantity(1);
+  // };
 
   const [galleryOptions, setGalleryOptions] = useState({
     showPlayButton: false, 

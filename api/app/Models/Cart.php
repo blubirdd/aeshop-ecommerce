@@ -11,8 +11,6 @@ class Cart extends Model
 
     protected $fillable = [
         'user_id',
-        'product_id',
-        'quantity',
     ];
 
     public function user()
@@ -20,8 +18,20 @@ class Cart extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function product()
+    public function products()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(CartProduct::class);
+    }
+
+    public function calculateTotalPrice()
+    {
+        $cartTotal = 0;
+
+        foreach ($this->products as $cartProduct) {
+            $product = $cartProduct->product;
+            $cartTotal += $product->new_price * $cartProduct->quantity;
+        }
+
+        return $cartTotal;
     }
 }

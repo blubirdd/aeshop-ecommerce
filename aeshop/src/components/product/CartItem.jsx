@@ -1,35 +1,67 @@
-import React, { useContext, useState } from 'react'
-import { ShopContext } from '../../context/ShopContext'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import ConfirmDialog from '../others/ConfirmDialog';
-
+import axiosClient from '../../axios-client';
 function CartItem() {
-  const { products, cartItems, increaseQuantity, removeFromCart, deleteFromCart, getItemStock, getTotalOfCartProducts } = useContext(ShopContext);
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState(null);
 
-  const showConfirmationDialog = (productId) => {
-    setItemToDelete(productId);
+  const [cart, setCart] = useState([]);
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+
+  useEffect(() => {
+    fetchCart();
+  }, [])
+
+  const fetchCart = async () => {
+    try {
+      const response = await axiosClient.get('/cart')
+      setCart(response.data.cart);
+      console.log(response.data.cart);
+    } catch (error) {
+      console.error("Error: ", error)
+    }
+  }
+
+  const handleDecreaseQuantity = (productID) => {
+    handleUpdateQuantity(productID, 'dec');
+  }
+
+  const handleIncreaseQuantity = (productID) => {
+    handleUpdateQuantity(productID, 'inc');
+  }
+
+  const handleUpdateQuantity = async (productID, action) => {
+    try {
+      await axiosClient.patch(`/cart/${productID}`, { action });
+      fetchCart();
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
+
+
+  const showConfirmationDialog = (productID) => {
+    setItemToDelete(productID);
     setShowConfirmDialog(true);
   };
 
-  const handleDecreaseQuantity = (productId) => {
-    if (cartItems[productId] <= 1) {
-      setItemToDelete(productId);
-      setShowConfirmDialog(true);
-    }
-    else {
-      removeFromCart(productId);
-    }
-  };
-
-  const handleDeleteConfirmation = () => {
-    if (itemToDelete) {
-      deleteFromCart(itemToDelete);
+  const handleDeleteConfirmation = () =>{
+    if(itemToDelete){
+      handleRemoveFromCart(itemToDelete);
       setItemToDelete(null);
       setShowConfirmDialog(false);
     }
-  };
+  }
+
+  const handleRemoveFromCart = async (productID) => {
+    try {
+     axiosClient.delete(`/cart/${productID}`)
+      fetchCart();
+    } catch (error) {
+      console.error("Error: ", error)
+    }
+
+  }
 
   return (
     <>
@@ -52,65 +84,63 @@ function CartItem() {
         </div>
 
         {/* cart items */}
-        {products.map((product) => {
-          if (cartItems[product.id] > 0) {
-            return (
-              <div key={product.id} className="flex items-center hover:bg-gray-50 -mx-8 px-5 sm:px-6 py-5 border-b-4 border-b-gray-100">
-                <div className="flex w-3/5">
-                  <Link to={`/product/${encodeURIComponent(product.name.toLowerCase().replace(/\s+/g, '-'))}`} className="w-16 sm:w-24">
-                    <img className="h-auto object-contain" src={product.image[0]} alt="" />
-                  </Link>
-                  <div className="flex flex-col ml-4 flex-grow mb-2">
-                    <span className="font-bold text-xs sm:text-lg">{product.name}</span>
-                    <span className="text-sky-900 font-bold py-1 text-xs md:text-sm">₱{product.new_price.toLocaleString()}</span>
+        {cart.products?.map((product) => {
+          return (
+            <div key={product.product.id} className="flex items-center hover:bg-gray-50 -mx-8 px-5 sm:px-6 py-5 border-b-4 border-b-gray-100">
+              <div className="flex w-3/5">
+                <Link to={`/product/${product.product.slug}`} className="w-16 sm:w-24">
+                  <img className="h-auto object-contain" src={product.product.image} alt="" />
+                </Link>
+                <div className="flex flex-col ml-4 flex-grow mb-2">
+                  <span className="font-bold text-xs sm:text-lg">{product.product.name}</span>
+                  <span className="text-sky-900 font-bold py-1 text-xs md:text-sm">₱{product.product.newPrice?.toLocaleString()}</span>
+                  <button
+                    type="button"
+                    onClick={() => showConfirmationDialog(product.product.id)}
+                    className="group flex mt-auto font-semibold text-start hover:text-red-500 text-red-400 text-xs">
+                    <span className="ps-1">Remove</span>
+                  </button>
+                </div>
+              </div>
+              <div className="w-1/5 flex flex-col items-center justify-center">
+                <div className="py-2 px-3 inline-block bg-white border border-gray-200 rounded-lg dark:bg-slate-900 dark:border-gray-700" data-hs-input-number>
+                  <div className="flex items-center gap-x-1.5">
                     <button
                       type="button"
-                      onClick={() => showConfirmationDialog(product.id)}
-                      className="group flex mt-auto font-semibold text-start hover:text-red-500 text-red-400 text-xs">
-                      <span className="ps-1">Remove</span>
+                      onClick={() => handleDecreaseQuantity(product.product.id)}
+                      className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                      data-hs-input-number-decrement>
+                      <svg className="flex-shrink-0 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /></svg>
+                    </button>
+                    <input
+                      className="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 dark:text-white"
+                      type="text"
+                      value={product.quantity}
+                      onChange={(e) => { }}
+                      readOnly
+                      data-hs-input-number-input
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleIncreaseQuantity(product.product.id)}
+                      className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                      // disabled={product.stock >= product.stock}
+                      data-hs-input-number-increment>
+
+                      <svg className="flex-shrink-0 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
                     </button>
                   </div>
                 </div>
-                <div className="w-1/5 flex flex-col items-center justify-center">
-                  <div className="py-2 px-3 inline-block bg-white border border-gray-200 rounded-lg dark:bg-slate-900 dark:border-gray-700" data-hs-input-number>
-                    <div className="flex items-center gap-x-1.5">
-                      <button
-                        type="button"
-                        onClick={() => handleDecreaseQuantity(product.id)}
-                        className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                        data-hs-input-number-decrement>
-                        <svg className="flex-shrink-0 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /></svg>
-                      </button>
-                      <input
-                        className="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 dark:text-white"
-                        type="text"
-                        value={cartItems[product.id]}
-                        onChange={(e) => { }}
-                        readOnly
-                        data-hs-input-number-input
-                      />
-                      <button
-                        type="button"
-                        onClick={() => (increaseQuantity(product.id))}
-                        className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                        disabled={cartItems[product.id] >= product.stock}
-                        data-hs-input-number-increment>
-
-                        <svg className="flex-shrink-0 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
-                      </button>
-                    </div>
-                  </div>
-                    {cartItems[product.id] >= product.stock && (
+                {/* {cartItems[product.id] >= product.stock && (
                       <p className=" text-red-400 text-xs p-2">Max reached</p>
-                    )}
-                </div>
-                <span className="text-center w-1/5 font-bold text-sky-950 text-sm sm:text-md">₱{(product.new_price * cartItems[product.id]).toLocaleString()}</span>
+                    )} */}
               </div>
-            );
-          }
+              <span className="text-center w-1/5 font-bold text-sky-950 text-sm sm:text-md">₱{(product.product.newPrice * product.quantity)?.toLocaleString()}</span>
+            </div>
+          );
           return null;
         })}
-        {getTotalOfCartProducts() === 0 ? (
+        {cart.products?.length === 0 ? (
           <div>
             <p>There are no items in your cart</p>
             <Link to="/" className="flex font-semibold text-sky-600 text-sm mt-10">
