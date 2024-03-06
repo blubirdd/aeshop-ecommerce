@@ -1,15 +1,12 @@
 import React, { useContext, useEffect } from 'react'
 import { UserContext } from '../../../context/UserContext'
-import { Link, Navigate, Outlet, useLocation } from "react-router-dom";
+import { Link, useNavigate, Outlet, useLocation } from "react-router-dom";
 import axiosClient from '../../../axios-client';
 
 function UserButton() {
 
   const { user, token, setUser, setToken } = useContext(UserContext);
-
-  if (!token) {
-    return <Navigate to="/guest/login" />
-  }
+  const navigate = useNavigate();
 
   const onLogout = ev => {
     ev.preventDefault()
@@ -18,6 +15,7 @@ function UserButton() {
       .then(() => {
         setUser({})
         setToken(null)
+        navigate('/guest/login');
       })
   }
 

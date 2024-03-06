@@ -27,7 +27,7 @@ function Sidebar() {
                 href="/"
               >
                 <img src={aeshopLogo} className="w-10" alt="Logo" />
-                {/* <span className="ml-2">Aeshop Admin</span> */}
+                <span className="ml-2">Aeshop Admin</span>
               </a>
             </div>
           </div>

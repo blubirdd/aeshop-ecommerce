@@ -20,10 +20,6 @@ class CartController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
         $cart = $user->cart;
 
         $cart->load('products.product');

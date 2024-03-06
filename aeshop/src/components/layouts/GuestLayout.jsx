@@ -1,23 +1,21 @@
 import React, { useContext, useEffect } from 'react'
 import Login from '../../pages/shop/Login'
 import Register from '../../pages/shop/Register'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { useNavigate, Route, Routes } from 'react-router-dom'
 import { UserContext } from '../../context/UserContext'
 
 function GuestLayout() {
   const { token, user } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  //temporary for testing
-  useEffect(()=>{
     if(token){
-      if (user.role === 'user' || user.role === "admin") {
-        return <Navigate to="/" />;
+      if (user.role === "admin") {
+        navigate('/admin');
       }
     }
     else{
       console.log("NO TOKEN AVAILABLE");
     }
-  },[token])
 
   return (
     <>

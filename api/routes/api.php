@@ -1,6 +1,7 @@
     <?php
 
     use App\Http\Controllers\Api\AuthController;
+    use App\Http\Controllers\api\OrderController;
     use App\Http\Controllers\Api\User\CartController;
     use App\Http\Controllers\Api\UserController;
     use App\Http\Controllers\Api\PostController;
@@ -24,14 +25,16 @@
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
-        Route::apiResource('cart', CartController::class);
+        Route::apiResource('/cart', CartController::class);
         Route::get('/cartSummary', [CartController::class, 'getCartSummary']);
+        Route::apiResource('/checkout', OrderController::class);
     });
 
     Route::middleware('auth:sanctum', 'admin')->group(function () {
         Route::apiResource('/users', UserController::class);
         Route::apiResource('/posts', PostController::class);
         Route::apiResource('/products', ProductController::class);
+        Route::apiResource('/orders', OrderController::class);
         Route::get('/posts/search', [PostController::class, 'search']);
     });
 
