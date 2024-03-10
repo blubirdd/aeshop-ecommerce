@@ -21,7 +21,7 @@ class CreateOrderItemsTable extends Migration
             $table->float('price');
             $table->timestamps();
     
-            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products');
         });
     }

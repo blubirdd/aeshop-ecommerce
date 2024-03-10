@@ -40,7 +40,27 @@ function ProductList({ products, onDelete }) {
                     <td className="px-3 py-3 whitespace-wrap text-sm text-gray-800 dark:text-gray-200 align-middle">{product.description}</td>
                     <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 align-middle">{product.category}</td>
                     <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 align-middle">₱{product.newPrice.toLocaleString()}</td>
-                    <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 text-center align-middle">{product.featured}</td>
+                    <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 text-center align-middle">
+                      <span className={`py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium ${product.featured === 'Yes' ? 'bg-green-200 text-green-800' : 'bg-gray-200 text-gray-700'} rounded-full dark:bg-teal-500/10 dark:text-teal-500`}>
+                        {product.featured === 'Yes' ? (
+                          <>
+                            <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                              <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z" clip-rule="evenodd" />
+                            </svg>
+                            {product.featured}
+                          </>
+                        ) : (
+                          <>
+                            <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                              <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2 1 1 0 1 0 0-2Z" clip-rule="evenodd" />
+                            </svg>
+                            {product.featured}
+                          </>
+                        )}
+                      </span>
+
+
+                    </td>
                     <td className="px-4  py-1 whitespace-nowrap space-x-1 text-sm font-medium align-middle">
                       <div className="hs-dropdown relative inline-flex">
                         <button id="hs-dropdown-custom-trigger" type="button" className="hs-dropdown-toggle bg-sky-700 hover:bg-sky-600 py-1 ps-1 pe-3 gap-x-1 inline-flex items-center text-sm font-semibold rounded-md  border  text-gray-800 shadow-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white">

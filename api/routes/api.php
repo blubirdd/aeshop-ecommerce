@@ -35,6 +35,8 @@
         Route::apiResource('/posts', PostController::class);
         Route::apiResource('/products', ProductController::class);
         Route::apiResource('/orders', OrderController::class);
+        Route::get('/top-products',[OrderController::class, 'topProducts']);
+        Route::get('/recent-orders',[OrderController::class, 'recentOrders']);
         Route::get('/posts/search', [PostController::class, 'search']);
     });
 

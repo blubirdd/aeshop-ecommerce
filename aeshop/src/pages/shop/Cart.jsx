@@ -4,13 +4,11 @@ import OrderSummary from '../../components/product/OrderSummary'
 import axiosClient from '../../axios-client'
 function Cart() {
 
-
-
   return (
     <div className="mx-auto">
       <div className="flex flex-col md:flex-row">
       <CartItem />
-      {/* <OrderSummary   /> */}
+      <OrderSummary   />
       </div>
     </div>
   )

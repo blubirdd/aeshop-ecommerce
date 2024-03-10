@@ -1,13 +1,27 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { ShopContext } from '../../../context/ShopContext';
 import { Link } from 'react-router-dom';
-
+import axiosClient from '../../../axios-client';
 function CartButton() {
   
   const { getTotalOfCartProducts } = useContext(ShopContext);
   const { products, cartItems } = useContext(ShopContext);
+  const [cartSummary, setcartSummary] = useState([]);
   let displayedItemCount = 0;
   
+  useEffect(() => {
+    getCartSummary();
+  }, [cartSummary])
+
+  const getCartSummary = async () => {
+    const response = await axiosClient.get('/cartSummary')
+    try {
+      setcartSummary(response.data)
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  }
+
   return (
     <div className="cartButton z-50">
       <div className="hs-dropdown [--trigger:hover]">
@@ -24,7 +38,7 @@ function CartButton() {
             </svg>
             <span className="absolute inset-0 object-right-top -mr-6 -mt-3">
               <div className="inline-flex items-center px-1.5 py-0.5 border-2 border-white rounded-full text-xs font-semibold leading-4 bg-red-500 text-white">
-                {getTotalOfCartProducts()}
+                {cartSummary.totalQuantity}
               </div>
             </span>
           </button>

@@ -46,7 +46,7 @@ function Orders() {
 
   const onDelete = (order) => {
     setConfirmDialog({
-      message: 'Are you sure you want to delete ' + order.name + '?',
+      message: 'Are you sure you want to delete ' + order.id + '?',
       onConfirm: () => handleDeleteConfirmed(order.id),
       onCancel: () => setConfirmDialog(null),
     });

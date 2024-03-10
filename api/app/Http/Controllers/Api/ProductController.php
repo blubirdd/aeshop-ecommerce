@@ -125,4 +125,5 @@ class ProductController extends Controller
             return response(['error' => 'Failed to delete product'], 500);
         }
     }
+
 }

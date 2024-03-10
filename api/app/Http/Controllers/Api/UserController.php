@@ -76,4 +76,9 @@ class UserController extends Controller
 
         return response("", 204);
     }
+
+    public function dashboard()
+    {
+
+    }
 }

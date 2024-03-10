@@ -1,8 +1,27 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import regions from '../../constants/regions'
 import aeshop from '/aeshop.jpg'
+import axiosClient from '../../axios-client'
+import { toast } from 'react-toastify';
 function CheckoutForm() {
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axiosClient.post('/orders');
+      console.log('Order submitted successfully:', response.data);
+      toast.success("Your order was successfuly completed");
+      navigate('/');
+
+    } catch (error) {
+      console.error('Error submitting order:', error);
+    }
+  };
+
   return (
     <div className="w-full md:w-1/2 md:ml-32 md:mr-2 bg-white  px-4 sm:px-8 py-2 mt-4 border rounded-xl">
       <Link to="/">
@@ -61,7 +80,7 @@ function CheckoutForm() {
         </div>
 
         <div className="md:px-8">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="py-6 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
               <label className="inline-block text-sm font-medium dark:text-white">
                 Contact Information
@@ -71,7 +90,7 @@ function CheckoutForm() {
                   <input type="email" id="email"
                     className="block border w-full px-2.5 pb-2.5 pt-4  text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
-                    required
+                    // required
                   />
                   <label
                     htmlFor="email"
@@ -105,7 +124,7 @@ function CheckoutForm() {
                       id="firstName"
                       className="block border w-full px-2.5 pb-2.5 pt-4 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                       placeholder=" "
-                      required
+                      // required
                     />
                     <label
                       htmlFor="firstName"
@@ -119,7 +138,7 @@ function CheckoutForm() {
                       id="lastName"
                       className="block border w-full px-2.5 pb-2.5 pt-4 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                       placeholder=" "
-                      required
+                      // required
                     />
                     <label
                       htmlFor="lastName"
@@ -132,7 +151,8 @@ function CheckoutForm() {
                   <input type="text" id="address"
                     className="block border w-full px-2.5 pb-2.5 pt-4  text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
-                    required />
+                    // required
+                  />
                   <label
                     htmlFor="address"
                     className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
@@ -147,7 +167,7 @@ function CheckoutForm() {
                       id="postalCode"
                       className="block border w-full px-2.5 pb-2.5 pt-4 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                       placeholder=" "
-                      required
+                      // required
                     />
                     <label
                       htmlFor="postalCode"
@@ -162,7 +182,7 @@ function CheckoutForm() {
                       id="city"
                       className="block border w-full px-2.5 pb-2.5 pt-4 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                       placeholder=" "
-                      required
+                      // required
                     />
                     <label
                       htmlFor="city"
@@ -176,7 +196,7 @@ function CheckoutForm() {
                   <select
                     id="region"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
+                    // required
                   >
                     {regions.map((region) => (
                       <option key={region.value} value={region.value}>
@@ -195,7 +215,7 @@ function CheckoutForm() {
                   <input type="number" id="number"
                     className="block border w-full px-2.5 pb-2.5 pt-4  text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     placeholder=" "
-                    required
+                    // required
                     />
                   <label
                     htmlFor="number"
@@ -206,8 +226,8 @@ function CheckoutForm() {
               </div>
             </div>
             <div className="mt-5 flex justify-end gap-x-2">
-              <button className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-sky-600 text-white hover:bg-sky-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                Continue to shipping
+              <button type="submit" className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-sky-600 text-white hover:bg-sky-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                Continue
               </button>
             </div>
           </form>
