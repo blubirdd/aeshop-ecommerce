@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->float('total_price');
             $table->timestamps();
     
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             // $table->foreign('shipment_id')->references('id')->on('shipments');
         });
     }

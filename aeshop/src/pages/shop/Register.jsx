@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createRef, useState } from "react";
 import axiosClient from '../../axios-client.js';
 import { UserContext } from '../../context/UserContext.jsx';
@@ -14,7 +14,7 @@ function Register() {
   const passwordConfirmationRef = createRef()
   const { setUser, setToken } = useContext(UserContext)
   const [errors, setErrors] = useState(null)
-
+  const navigate = useNavigate();
   const onSubmit = ev => {
     ev.preventDefault()
 
@@ -29,6 +29,7 @@ function Register() {
       .then(({ data }) => {
         setUser(data.user)
         setToken(data.token);
+        navigate('/');
       })
       .catch(err => {
         const response = err.response;

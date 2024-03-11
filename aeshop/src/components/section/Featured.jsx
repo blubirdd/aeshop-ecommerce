@@ -16,7 +16,7 @@ function Featured() {
   const fetchFeaturedProducts = async () => {
     setLoading(true);
     try {
-      const response = await axiosClient.get('products', {
+      const response = await axiosClient.get('user/products', {
         params: {
           featured: {
             eq: 'Yes'

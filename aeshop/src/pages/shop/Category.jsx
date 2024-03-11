@@ -15,7 +15,7 @@ function Category({ banner, description, category, loadingState }) {
     setLoading(true);
     loadingState(true);
     try {
-      const response = await axiosClient.get('/products', {
+      const response = await axiosClient.get('/user/products', {
         params: {
           category: {
             eq: category,

@@ -12,7 +12,7 @@ function CheckoutForm() {
     e.preventDefault();
 
     try {
-      const response = await axiosClient.post('/orders');
+      const response = await axiosClient.post('/checkout');
       console.log('Order submitted successfully:', response.data);
       toast.success("Your order was successfuly completed");
       navigate('/');

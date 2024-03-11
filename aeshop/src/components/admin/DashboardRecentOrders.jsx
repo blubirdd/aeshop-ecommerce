@@ -43,13 +43,13 @@ function DashboardRecentOrders() {
                   <td className="px-6 py-3 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">{order.customer_name}</td>
                   <td className="px-3 py-3 whitespace-wrap text-sm text-center text-gray-800 dark:text-gray-200 align-middle">{order.totalProducts}</td>
                   <td className="px-3 py-3 whitespace-nowrap text-sm text-center text-gray-800 dark:text-gray-200 align-middle">{order.total_price}</td>
-                  <td className="px-4  py-1 whitespace-nowrap space-x-1 text-sm font-medium align-middle text-center items-center">
+                  <td className="px-2  py-1 whitespace-nowrap space-x-1 text-sm font-medium align-middle text-center items-center">
                     <div className="hs-dropdown relative inline-flex">
-                      <button id="hs-dropdown-custom-trigger" type="button" className="hs-dropdown-toggle bg-sky-900 hover:bg-sky-800 py-1 ps-1 pe-3 gap-x-1 inline-flex items-center text-sm font-semibold rounded-md  border  text-gray-800 shadow-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white">
-                        <svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <button id="hs-dropdown-custom-trigger" type="button" className="hs-dropdown-togglepy-1 ps-1 pe-2 gap-x-1 inline-flex items-center text-sm font-semibold rounded-md text-gray-800 shadow-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white">
+                        <svg className="w-4 h-4 text-sky-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M5 10.9a8.7 8.7 0 0 1 6.4-3.6V6a2 2 0 0 1 2.3-2c.4 0 .7.1 1 .3l5.5 4.3a2.1 2.1 0 0 1 0 3.3l-5.5 4.3a2 2 0 0 1-2 .3 2 2 0 0 1-1.2-1.9v-1C6 15 5.2 19 5.2 19.3a1 1 0 0 1-1 .8 1 1 0 0 1-1-.7A10.2 10.2 0 0 1 5 10.9Z" />
                         </svg>
-                        <span className="text-sm font-normal truncate max-w-[7.5rem] text-gray-200">
+                        <span className="text-sm font-normal truncate max-w-[7.5rem] text-sky-600">
                           View
                         </span>
                       </button>

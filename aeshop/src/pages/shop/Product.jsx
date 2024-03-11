@@ -22,7 +22,7 @@ function Product() {
   const retrieveProduct = async () => {
 
     setLoading(true);
-    const response = await axiosClient.get(`/products/${slug}`)
+    const response = await axiosClient.get(`user/products/${slug}`)
       try{
         setProduct(response.data);
         console.log(response.data)

@@ -30,6 +30,11 @@ class CartController extends Controller
     public function getCartSummary(Request $request)
     {
         $user = $request->user();
+
+        if (!$user->cart) {
+            $cart = $user->cart()->create();
+        } 
+        
         $cart = $user->cart;
 
         $cart->load('products');

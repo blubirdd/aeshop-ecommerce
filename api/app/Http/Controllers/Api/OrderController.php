@@ -16,12 +16,9 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = $request->user();
-
         $orders = Order::with('orderItems')
-            ->where('user_id', $user->id)
             ->orderBy('order_date', 'desc')
             ->paginate(10);
 

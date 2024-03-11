@@ -1,8 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import axiosClient from '../../axios-client';
 import DashboardTopProducts from '../../components/admin/DashboardTopProducts';
 import DashboardRecentOrders from '../../components/admin/DashboardRecentOrders';
 function Dashboard() {
+
+  const [dashboard, setDashboard] = useState([]);
+
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      try {
+        const response = await axiosClient.get('/dashboard');
+        setDashboard(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error fetching dashboard:', error);
+      }
+    };
+
+    fetchDashboard();
+  }, []);
 
   return (
     <>
@@ -17,7 +34,7 @@ function Dashboard() {
               </svg>
             </div>
             <div className="mx-5">
-              <h4 className="text-2xl font-semibold text-gray-700">15</h4>
+              <h4 className="text-2xl font-semibold text-gray-700">{dashboard.pendingOrders}</h4>
               <div className="text-gray-500">New Orders</div>
             </div>
           </div>
@@ -31,7 +48,7 @@ function Dashboard() {
               </svg>
             </div>
             <div className="mx-5">
-              <h4 className="text-2xl font-semibold text-gray-700">15</h4>
+              <h4 className="text-2xl font-semibold text-gray-700">{dashboard.totalProducts}</h4>
               <div className="text-gray-500">Products</div>
             </div>
           </div>
@@ -46,7 +63,7 @@ function Dashboard() {
 
             </div>
             <div className="mx-5">
-              <h4 className="text-2xl font-semibold text-gray-700">15</h4>
+              <h4 className="text-2xl font-semibold text-gray-700">{dashboard.totalSales}</h4>
               <div className="text-gray-500">Total Sales</div>
             </div>
           </div>
@@ -61,7 +78,7 @@ function Dashboard() {
 
             </div>
             <div className="mx-5">
-              <h4 className="text-2xl font-semibold text-gray-700">15</h4>
+              <h4 className="text-2xl font-semibold text-gray-700">{dashboard.totalUsers}</h4>
               <div className="text-gray-500">Users</div>
             </div>
           </div>
