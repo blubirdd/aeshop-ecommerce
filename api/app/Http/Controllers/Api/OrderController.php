@@ -53,14 +53,14 @@ class OrderController extends Controller
 
         foreach ($cart->products as $cartProduct) {
             $product = $cartProduct->product;
-
+        
             OrderItem::create([
-                'order_id' => $order->id,
+                'order_id' => $order->id, 
                 'product_id' => $product->id,
                 'quantity' => $cartProduct->quantity,
                 'price' => $product->new_price,
             ]);
-
+        
             $cartProduct->delete();
         }
 
@@ -141,7 +141,7 @@ class OrderController extends Controller
             $orderData = [
                 'id' => $order->id,
                 'customer_name' => $order->user->name,
-                'order_date' => $order->order_date,
+                'date' => $order->order_date,
                 'total_price' => $order->total_price,
                 'totalProducts' => $order->orderItems->sum('quantity'),
             ];

@@ -10,7 +10,7 @@ function OrderList({ orders, onDelete }) {
             <table className="min-w-full z-10 divide-y divide-gray-200 dark:divide-gray-700 bg-gray-50">
               <thead className="bg-gray-200 dark:bg-gray-700">
                 <tr>
-                  <th scope="col" className="px-3 py-3 text-center text-xs font-medium text-gray-800 uppercase dark:text-gray-400">ID</th>
+                  <th scope="col" className="px-3 py-3 text-center text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Order ID</th>
                   <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">User</th>
                   <th scope="col" className="px-3 py-3 text-center text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Items</th>
                   <th scope="col" className="px-3 py-3 text-center text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Total Items</th>
@@ -37,10 +37,11 @@ function OrderList({ orders, onDelete }) {
                     <td className="px-3 py-3 whitespace-wrap text-sm text-center text-gray-800 dark:text-gray-200 align-middle">{order.totalProducts}</td>
                     <td className="px-3 py-3 whitespace-nowrap text-sm text-center text-gray-800 dark:text-gray-200 align-middle">₱{order.total_price.toLocaleString()}</td>
                     <td className="px-3 py-3 whitespace-nowrap text-center text-sm text-gray-800 dark:text-gray-200 align-middle">
-                      <span className="py-0.5 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-orange-100 text-amber-950 rounded-full">
+                      <span className={`py-0.5 inline-flex items-center gap-x-1 text-xs font-medium ${order.status === 'Pending' ? 'bg-orange-200 px-4 text-amber-950' : order.status === 'Completed' ? 'bg-teal-200 text-teal-900 px-2' : ''} rounded-full`}>
                         {order.status}
                       </span>
                     </td>
+
                     <td className="px-3 py-3 whitespace-wrap text-sm text-gray-800 dark:text-gray-200 align-middle">{order.order_date}</td>
                     <td className="px-4  py-1 whitespace-nowrap space-x-1 text-sm font-medium align-middle justify-center">
                       <div className="hs-dropdown relative inline-flex">
@@ -54,10 +55,10 @@ function OrderList({ orders, onDelete }) {
                         </button>
 
                         <div className="hs-dropdown-menu z-[999] transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-gray-100 shadow-md p-2 mt-2 dark:bg-gray-800 dark:border dark:border-gray-700" aria-labelledby="hs-dropdown-custom-trigger">
-                          <Link to={'/admin/orders/' + orders.id} className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-white focus:outline-none focus:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:bg-gray-700" href="#">
+                          <Link to={'/admin/orders/' + order.id} className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-white focus:outline-none focus:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:bg-gray-700" href="#">
                             View item
                           </Link>
-                          <Link to={'/admin/orders/' + orders.id} className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-white focus:outline-none focus:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:bg-gray-700" href="#">
+                          <Link to={'/admin/orders/' + order.id} className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-white focus:outline-none focus:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:bg-gray-700" href="#">
                             Edit Item
                           </Link>
                           <button onClick={ev => onDelete(order)} type="button" className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-white focus:outline-none focus:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:bg-gray-700" href="#">

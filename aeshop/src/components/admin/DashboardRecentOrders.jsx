@@ -33,6 +33,7 @@ function DashboardRecentOrders() {
                 <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Customer</th>
                 <th scope="col" className="px-3 py-3 text-center text-xs font-medium text-gray-800 uppercase dark:text-gray-400">No. of Items</th>
                 <th scope="col" className="px-3 py-3 text-center text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Total</th>
+                <th scope="col" className="px-3 py-3 text-center text-xs font-medium text-gray-800 uppercase dark:text-gray-400">Date</th>
                 <th scope="col" className="px-3 py-3 text-center text-xs font-medium text-gray-800 uppercase dark:text-gray-400 w-32">Actions</th>
               </tr>
             </thead>
@@ -42,7 +43,8 @@ function DashboardRecentOrders() {
                   <td className="py-3 whitespace-wrap text-center text-sm text-gray-800 dark:text-gray-200 align-middle">{order.id}</td>
                   <td className="px-6 py-3 whitespace-wrap text-sm text-gray-800 dark:text-gray-200">{order.customer_name}</td>
                   <td className="px-3 py-3 whitespace-wrap text-sm text-center text-gray-800 dark:text-gray-200 align-middle">{order.totalProducts}</td>
-                  <td className="px-3 py-3 whitespace-nowrap text-sm text-center text-gray-800 dark:text-gray-200 align-middle">{order.total_price}</td>
+                  <td className="px-3 py-3 whitespace-nowrap text-sm text-center text-gray-800 dark:text-gray-200 align-middle">₱{ order.total_price.toLocaleString()}</td>
+                  <td className="px-3 py-3 whitespace-wrap text-sm text-center text-gray-800 dark:text-gray-200 align-middle">{order.date}</td>
                   <td className="px-2  py-1 whitespace-nowrap space-x-1 text-sm font-medium align-middle text-center items-center">
                     <div className="hs-dropdown relative inline-flex">
                       <button id="hs-dropdown-custom-trigger" type="button" className="hs-dropdown-togglepy-1 ps-1 pe-2 gap-x-1 inline-flex items-center text-sm font-semibold rounded-md text-gray-800 shadow-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white">

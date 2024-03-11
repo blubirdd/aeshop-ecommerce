@@ -12,6 +12,7 @@ import PostForm from '../../pages/admin/forms/Postform';
 import Products from '../../pages/admin/Products';
 import ProductForm from '../../pages/admin/forms/Productform';
 import Orders from '../../pages/admin/Orders';
+import OrderForm from '../../pages/admin/forms/OrderForm';
 
 
 function AdminLayout() {
@@ -38,7 +39,7 @@ function AdminLayout() {
             <Route path="/products/:id" element={<ProductForm key="productUpdate" />} />
 
             <Route path ="/orders" element={<Orders />} />
-            
+            <Route path="/orders/:id" element={<OrderForm key="orderUpdate" />} />
             </Routes>
         </div>
       </main>

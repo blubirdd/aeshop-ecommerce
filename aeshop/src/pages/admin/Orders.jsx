@@ -34,6 +34,7 @@ function Orders() {
       .then(({ data }) => {
         setLoading(false);
         setOrders(data.orders);
+        console.log(data.orders);
         setPagination({
           currentPage: data.meta.current_page,
           totalPages: data.meta.last_page,
