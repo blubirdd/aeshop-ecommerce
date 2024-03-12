@@ -2,8 +2,8 @@
 [Aeshop](https://aeshop.vercel.app/) is an e-commerce web application selling different kinds of tech, gadgets and collectibles, built with React and Laravel as the API, 
 
 <div style="display: flex; justify-content:center">
-  <img src="https://i.ibb.co/6Z6h3Kk/aeshop-vercel-app-min.png" height="535px"/>
-  <img src="https://i.ibb.co/fr7hg9t/3.jpg" width="50%"/>
+  <img src="https://i.ibb.co/6Z6h3Kk/aeshop-vercel-app-min.png" height="600px"/>
+  <img src="https://i.ibb.co/fr7hg9t/3.jpg" width="60%"/>
 </div>
 
 ## Built with
